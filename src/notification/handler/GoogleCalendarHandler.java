@@ -11,7 +11,8 @@ public class GoogleCalendarHandler extends NotificationHandler{
 
     @Override
     protected boolean canHandle(EventInterface event) {
-        return event.getPriority() >= 1;
+        // return event.getPriority() >= 1;
+        return true;
     }
 
     @Override

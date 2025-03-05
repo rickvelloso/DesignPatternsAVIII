@@ -9,7 +9,7 @@ public class GoogleCalendarNotification implements NotificationStrategy {
         System.out.println("\n📆 Message added to google calendar:" +
                             "\n\tPriority: " + event.getPriority() +
                             "\n\tDescription: " + event.getDescription() +
-                            "\n\tStarts At: " + event.getStartDate() +
+                            "\n\tFrom: " + event.getStartDate() + "  to: " + event.getEndDate() +
                             "\n\tLocation: " + event.getLocation()
         );
     }

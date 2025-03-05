@@ -1,16 +1,21 @@
 package notification.strategy;
 
+import enums.ContactsEnum;
+import models.Event.AbstractEvent;
 import models.Event.EventInterface;
 
 public class SMSNotification implements NotificationStrategy {
 
     @Override
     public void send(EventInterface event) {
-        System.out.println("\nMessage sent by SMS:\n" +
-                "\n\tDescription: " + event.getDescription() +
-                "\n\tStarts At: " + event.getStartDate() +
-                "\n\tLocation: " + event.getLocation()
-        );
+
+        String contact = ((AbstractEvent) event).getContact(ContactsEnum.NUMBER);
+        if(contact != null)
+            System.out.println("\nMessage sent by SMS: " + contact +
+                    "\n\tDescription: " + event.getDescription() +
+                    "\n\tFrom: " + event.getStartDate() + "  to: " + event.getEndDate() +
+                    "\n\tLocation: " + event.getLocation()
+            );
     }
 
 }

@@ -1,11 +1,13 @@
 package models.Event;
 
-import java.time.LocalDate;
+import notification.builder.EventBuilder;
 
 public class Reminder extends AbstractEvent {
 
-    public Reminder(int priority, LocalDate startDate, LocalDate endDate, String description, String location) {
-        super(priority, startDate, endDate, description, location);
+    public Reminder(){super();};
+
+    public Reminder(EventBuilder eventBuilder) {
+        super(eventBuilder);
     }
 
 }
