@@ -18,6 +18,7 @@ public class WhatsAppHandler  extends NotificationHandler{
 
     @Override
     protected void processNotification(EventInterface event) {
+        // ...Formatações para envia via WhatsApp
        super.strategy.send(event);
     }
 

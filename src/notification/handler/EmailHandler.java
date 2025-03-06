@@ -21,6 +21,7 @@ public class EmailHandler extends NotificationHandler {
 
     @Override
     protected void processNotification(EventInterface event) {
+        // ...Formatações para envia via Email
        super.strategy.send(event);
     }
 

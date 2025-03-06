@@ -5,7 +5,7 @@ import notification.strategy.NotificationStrategy;
 
 // Interface base do Chain of Responsibility
 public abstract class NotificationHandler {
-    protected NotificationHandler next;
+    private NotificationHandler next;
     protected NotificationStrategy strategy;
 
     public NotificationHandler(NotificationStrategy strategy) {
@@ -26,7 +26,12 @@ public abstract class NotificationHandler {
             next.notify(event);
         }
     }
-
+ 
     protected abstract boolean canHandle(EventInterface event);
-    protected abstract void processNotification(EventInterface event);
+
+    // Possui comportamento de envio padrão, mas pode ser sobreescrito pelas
+    // classes filho, caso necessário alguma alteração comportamental
+    protected void processNotification(EventInterface event) {
+        this.strategy.send(event);
+    }
 }

@@ -17,6 +17,7 @@ public class GoogleCalendarHandler extends NotificationHandler{
 
     @Override
     protected void processNotification(EventInterface event) {
+        // ...Formatações para envia via Calendar
        super.strategy.send(event);
     }
 

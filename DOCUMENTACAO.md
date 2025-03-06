@@ -1,12 +1,18 @@
 # Análise de Padrões de Projeto e Documentação
 
+## Padrões Utilizados
+- **Builder**
+- **Strategy**
+- **Chain of Responsability**
+
 ## 1. Builder Pattern
 
 ### Justificativa
-- **Problema resolvido:** A criação de objetos “Evento” envolve vários atributos obrigatórios e opcionais.
+- **Problema resolvido:** A criação de objetos que implementam a interface Event, pode envolver vários atributos obrigatórios e/ou opcionais.
+
 - **Benefícios:**
   - Separa o processo de construção da representação final, tornando o código mais legível e fácil de manter.
-  - Permite o reaproveitamento do builder para criar diferentes instâncias (como observado com o método `reset`).
+  - Permite o reaproveitamento dos dados inseridos no builder para criar diferentes instâncias independentes.
   - Facilita a construção de objetos imutáveis ou sem a necessidade de múltiplos construtores.
 
 ### Classes Participantes
@@ -25,9 +31,49 @@
 - **`Reminder`:**
   - Classe concreta que representa um tipo específico de evento, construído por meio do `ReminderBuilder`.
 
+### Estrutura do Builder (sem diretor):
+  ![alt text](diagrams/patternsStructure/BuilderPattern.png)
+
+### Estrutura do Builder no Projeto:
+  ![alt text](diagrams/onProject/Builder.png)
+
 ---
 
-## 2. Chain of Responsibility Pattern
+## 2. Strategy Pattern
+
+### Justificativa
+- **Problema resolvido:** Diferentes métodos de notificação (email, WhatsApp, Google Calendar, SMS) possuem algoritmos distintos para o envio da mensagem, permitindo assumir uma estratégia diferente para cada tipo de notificação, de forma independente.
+
+- **Benefícios:**
+  - Encapsula cada algoritmo de envio em sua própria classe, permitindo a troca ou extensão dos métodos de notificação sem impactar o restante do código.
+  - Promove a reutilização e a intercambialidade das estratégias de notificação.
+
+### Classes Participantes
+- **`NotificationStrategy` (interface):**
+  - Define o método `send(EventInterface event)` que todas as estratégias de notificação devem implementar.
+
+- **Implementações Concretas:**
+  - **`EmailNotification`:**
+    - Implementa o envio de notificações por email, extraindo o contato de email do evento.
+  - **`GoogleCalendarNotification`:**
+    - Implementa a notificação via Google Calendar, adicionando o evento ao calendário.
+  - **`WhatsAppNotification`:**
+    - Implementa a notificação via WhatsApp, enviando a mensagem para o número especificado.
+  - **`SMSNotification`:**
+    - Embora não seja diretamente utilizada na cadeia de handlers apresentada, está implementada para o envio de SMS.
+
+- **Integração com os Handlers:**
+  - Cada `NotificationHandler` possui uma referência a um objeto que implementa `NotificationStrategy` (por exemplo, o `EmailHandler` é construído com um `EmailNotification`), delegando assim o envio real da mensagem à estratégia configurada.
+
+  ### Estrutura do Strategy:
+    ![alt text](diagrams/patternsStructure/StrategyPattern.png)
+
+  ### Estrutura do Strategy no Projeto:
+    ![alt text](diagrams/onProject/Strategy.png)
+
+---
+
+## 3. Chain of Responsibility Pattern
 
 ### Justificativa
 - **Problema resolvido:** Há a necessidade de selecionar dinamicamente o canal de notificação mais adequado para um evento, de acordo com critérios como prioridade e data.
@@ -52,34 +98,17 @@
   - Classe responsável por montar a cadeia de responsabilidade.
   - Instancia os handlers e os encadeia (GoogleCalendarHandler → WhatsAppHandler → EmailHandler) para que, ao chamar `notify`, cada handler tenha a chance de processar o evento.
 
----
+  ### Estrutura do CoR:
+    ![alt text](diagrams/patternsStructure/CoRPattern.png)
 
-## 3. Strategy Pattern
-
-### Justificativa
-- **Problema resolvido:** Diferentes métodos de notificação (email, WhatsApp, Google Calendar, SMS) possuem algoritmos distintos para o envio da mensagem.
-- **Benefícios:**
-  - Encapsula cada algoritmo de envio em sua própria classe, permitindo a troca ou extensão dos métodos de notificação sem impactar o restante do código.
-  - Promove a reutilização e a intercambialidade das estratégias de notificação.
-
-### Classes Participantes
-- **`NotificationStrategy` (interface):**
-  - Define o método `send(EventInterface event)` que todas as estratégias de notificação devem implementar.
-
-- **Implementações Concretas:**
-  - **`EmailNotification`:**
-    - Implementa o envio de notificações por email, extraindo o contato de email do evento.
-  - **`GoogleCalendarNotification`:**
-    - Implementa a notificação via Google Calendar, adicionando o evento ao calendário.
-  - **`WhatsAppNotification`:**
-    - Implementa a notificação via WhatsApp, enviando a mensagem para o número especificado.
-  - **`SMSNotification`:**
-    - Embora não seja diretamente utilizada na cadeia de handlers apresentada, está implementada para o envio de SMS.
-
-- **Integração com os Handlers:**
-  - Cada `NotificationHandler` possui uma referência a um objeto que implementa `NotificationStrategy` (por exemplo, o `EmailHandler` é construído com um `EmailNotification`), delegando assim o envio real da mensagem à estratégia configurada.
+  ### Estrutura do CoR no Projeto:
+    ![alt text](diagrams/onProject/CoR.png)
 
 ---
+
+## Estrutura Completa:
+  ![alt text](diagrams/onProject/ActivityDiagram.png)
+
 
 ## Considerações Finais
 
