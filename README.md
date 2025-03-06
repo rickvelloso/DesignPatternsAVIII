@@ -106,6 +106,46 @@
 
 ---
 
+## 4. Template Method Pattern
+
+### Justificativa
+- **Problema resolvido:** Necessidade de definir o esqueleto de um algoritmo para processamento de notificações, permitindo que subclasses alterem partes específicas desse algoritmo.
+
+- **Benefícios:**
+  - Evita a duplicação de código ao centralizar o fluxo de notificação na classe abstrata.
+  - Permite que as subclasses redefinam apenas os passos necessários, mantendo a estrutura geral do algoritmo.
+  - Facilita a extensibilidade da hierarquia de handlers.
+
+### Classes Participantes
+- **`NotificationHandler` (classe abstrata):**
+  - Define o template method `notify(EventInterface event)` que implementa o algoritmo geral:
+    1. Verifica se o handler pode processar o evento (`canHandle`)
+    2. Se puder, processa a notificação (`processNotification`)
+    3. Passa o evento para o próximo handler na cadeia (se existir)
+  - Declara o método abstrato `canHandle(EventInterface event)` que subclasses devem implementar.
+  - Fornece uma implementação padrão para `processNotification(EventInterface event)` que pode ser sobrescrita.
+
+- **Implementações Concretas:**
+  - **`GoogleCalendarHandler`:**
+    - Implementa `canHandle()` para determinar se deve processar a notificação (neste caso, aceita todos os eventos).
+    - Sobrescreve `processNotification()` para adicionar formatações específicas para Google Calendar.
+  
+  - **`WhatsAppHandler`:**
+    - Implementa `canHandle()` para processar apenas eventos com prioridade 10 que começam na data atual.
+    - Sobrescreve `processNotification()` para formatar a mensagem para WhatsApp.
+  
+  - **`EmailHandler`:**
+    - Implementa `canHandle()` para processar eventos de alta prioridade ou que estejam em um período específico.
+    - Sobrescreve `processNotification()` para formatar a mensagem para email.
+
+### Estrutura do Template Method:
+  ![alt text](diagrams/patternsStructure/TemplatePattern.png)
+
+### Estrutura do Template Method no Projeto:
+  ![alt text](diagrams/onProject/TemplateMethod.png)
+
+---
+
 ## Estrutura Completa:
   ![alt text](diagrams/onProject/ActivityDiagram.png)
 
