@@ -4,6 +4,7 @@
 - **Builder**
 - **Strategy**
 - **Chain of Responsability**
+- **Template Method**
 
 ## 1. Builder Pattern
 
@@ -152,9 +153,13 @@
 
 ## Considerações Finais
 
-A combinação desses três padrões (Builder, Chain of Responsibility e Strategy) proporciona uma arquitetura modular, flexível e de fácil manutenção:
+A combinação desses quatro padrões (Builder, Chain of Responsibility, Strategy e Template Method) proporciona uma arquitetura modular, flexível e de fácil manutenção:
 
 - **Builder Pattern:** Simplifica a criação de objetos complexos com múltiplos parâmetros, evitando a proliferação de construtores e facilitando o reaproveitamento do builder.
 - **Chain of Responsibility Pattern:** Permite a distribuição das responsabilidades de notificação por diferentes canais, com cada handler avaliando se pode processar o evento, sem conhecimento dos demais.
 - **Strategy Pattern:** Isola os algoritmos de envio de notificações, tornando possível a adição ou substituição de canais sem a necessidade de alterar a lógica dos handlers.
+- **Template Method Pattern:** Define o esqueleto do algoritmo de notificação, permitindo que as subclasses alterem partes específicas sem modificar a estrutura geral, promovendo reutilização de código e consistência no fluxo de processamento.
+
+Essa estrutura não apenas resolve os problemas atuais do sistema de notificação, mas também fornece uma base sólida para extensões e modificações futuras, seguindo os princípios de design orientado a objetos.
+
 
